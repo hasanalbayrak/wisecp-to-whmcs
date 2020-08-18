@@ -6,8 +6,6 @@ use Ramsey\Uuid\Uuid as UUID;
 $uuid = UUID::uuid4();
 $uuid -> toString();
 
-$DEFAULT_PASSWORD = "DEFAULT_PASSWORD";
-
 $clients = Capsule::table("users")
     ->where("type", "member")
     ->get();
@@ -47,7 +45,7 @@ foreach ($clients as $client) {
         'country' => $country->a2_iso,
         'phonenumber' => $client->phone,
         'tax_id' => '',
-        'password' => password_hash($DEFAULT_PASSWORD, PASSWORD_DEFAULT),
+        'password' => password_hash(time() . rand(100, 999999), PASSWORD_DEFAULT),
         'authmodule' => '',
         'authdata' => '',
         'currency' => $client->currency,
