@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $servers = Capsule::table("servers")
@@ -14,7 +12,7 @@ foreach ($servers as $server) {
     if ($server->secure == 1) {
         $secure = "on";
     }
-    $tblServers[] = [
+    $tblServers = [
         'id' => $server->id,
         'name' => $server->name,
         'ipaddress' => $server->ip,
@@ -43,6 +41,10 @@ foreach ($servers as $server) {
         'active' => 1,
         'disabled' => 0
     ];
+    $buildQuery = insert_query('tblservers', $tblServers);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Sunucu eklendi: Sunucu Adı: '.$server->name.'<br />';
+    }else{
+        echo 'Sunucu AKTARILMADI! -- Sunucu Adı: '.$server->name.'<br />';
+    }
 }
-
-echo json_encode($tblServers, true);

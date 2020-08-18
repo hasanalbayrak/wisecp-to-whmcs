@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $currencies = Capsule::table("currencies")
@@ -9,7 +7,7 @@ $currencies = Capsule::table("currencies")
     ->get();
 $tblcurrencies = [];
 foreach ($currencies as $currency) {
-    $tblcurrencies[] = [
+    $tblcurrencies = [
         'id' => $currency->id,
         'code' => $currency->code,
         'prefix' => $currency->prefix,
@@ -18,6 +16,10 @@ foreach ($currencies as $currency) {
         'rate' => $currency->rate,
         'default' => $currency->local
     ];
+    $buildQuery = insert_query('tblcurrencies', $tblcurrencies);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Para birimi aktarıldı: Para birimi kodu: '.$currency->code.'<br />';
+    }else{
+        echo 'Para birimi AKTARILAMADI! -- Para birimi kodu: '.$currency->code.'<br />';
+    }
 }
-
-echo json_encode($tblcurrencies, true);

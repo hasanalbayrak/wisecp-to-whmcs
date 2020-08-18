@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/templates/js/icheck.min.js" />
+        <item url="file://$PROJECT_DIR$/templates/js/icheck.min.min.js" />
+        <item url="file://$PROJECT_DIR$/templates/js/icheck.min.min.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/templates/js/icheck.min.js" />
+      <root url="file://$PROJECT_DIR$/templates/js/icheck.min.min.js" />
+      <root url="file://$PROJECT_DIR$/templates/js/icheck.min.min.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Ramsey\Uuid\Uuid as UUID;
 
@@ -35,7 +33,7 @@ foreach ($clients as $client) {
         $status = "Active";
     }
     $updated_at = new \DateTime("now");
-    $tblClients[] = [
+    $tblClients = [
         'id' => $client->id,
         'uuid' => $uuid,
         'firstname' => $client->name,
@@ -92,6 +90,10 @@ foreach ($clients as $client) {
         'updated_at' => $updated_at->format("Y-m-d H:i:s"),
         'pwresetexpiry' => NULL
     ];
+    $buildQuery = insert_query('tblclients', $tblClients);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Müşteri aktarıldı: Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />';
+    }else{
+        echo 'Müşteri AKTARILMADI! -- Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />';
+    }
 }
-
-echo json_encode($tblClients, true);

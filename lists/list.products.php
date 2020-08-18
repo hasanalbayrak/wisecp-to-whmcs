@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $types = [
@@ -51,7 +49,7 @@ foreach ($products as $product) {
         $stockcontrol = 1;
         $qty = $product->stock;
     }
-    $whmcsExcluded[] = [
+    $whmcsExcluded = [
         'id' => $product->id,
         'type' => $type,
         'gid' => $product->category,
@@ -119,6 +117,10 @@ foreach ($products as $product) {
         'created_at' => $product->ctime,
         'updated_at' => $product->ctime
     ];
+    $buildQuery = insert_query('tblproducts', $whmcsExcluded);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Ürün aktarıldı: Ürün adı: '.$product_lang->title.'<br />';
+    }else{
+        echo 'Ürün AKTARILMADI -- Ürün adı: '.$product_lang->title.'<br />';
+    }
 }
-
-echo json_encode($whmcsExcluded, true);

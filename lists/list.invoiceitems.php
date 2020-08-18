@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $invoiceitems = Capsule::table("invoices_items")
@@ -52,7 +50,7 @@ foreach ($invoiceitems as $invoiceitem) {
         $type = "Hosting";
     }
 
-    $tblInvoiceItems[] = [
+    $tblInvoiceItems = [
         'id' => $invoiceitem->id,
         'invoiceid' => $invoiceitem->owner_id,
         'userid' => $invoiceitem->user_id,
@@ -65,6 +63,10 @@ foreach ($invoiceitems as $invoiceitem) {
         'paymentmethod' => $paymentmethod,
         'notes' => '',
     ];
+    $buildQuery = insert_query('tblinvoiceitems', $tblInvoiceItems);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Fatura öğesi aktarıldı: Fatura No: '.$invoiceitem->id.'<br />';
+    }else{
+        echo 'Fatura öğesi AKTARILMADI! -- Fatura No: '.$invoiceitem->id.'<br />';
+    }
 }
-
-echo json_encode($tblInvoiceItems);

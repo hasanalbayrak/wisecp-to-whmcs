@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $prices = Capsule::table("prices")
@@ -34,7 +32,7 @@ foreach ($prices as $price) {
         $type = "product";
     }
 
-    $tblPricing[] = [
+    $tblPricing = [
         'id' => $price->id,
         'type' => $type,
         'currency' => $price->cid,
@@ -52,6 +50,11 @@ foreach ($prices as $price) {
         'biennially' => '', // 2 yıllık
         'triennially' => '', // 3 yıllık
     ];
-}
 
-echo json_encode($tblPricing, true);
+    $buildQuery = insert_query('tblpricing', $tblPricing);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Ürün fiyat alanı eklendi: Ürün ID: '.$price->owner_id.'<br />';
+    }else{
+        echo 'Ürün fiyat alanı AKTARILMADI! -- Ürün ID: '.$price->owner_id.'<br />';
+    }
+}

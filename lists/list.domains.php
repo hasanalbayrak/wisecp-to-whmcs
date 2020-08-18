@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $domains = Capsule::table("users_products")
@@ -79,7 +77,7 @@ foreach ($domains as $domain) {
         ->where("data", "LIKE", "%\"invoice_id\":\"".$domain->invoice_id."\"%")
         ->first();
 
-    $tblDomains[] = [
+    $tbldomains = [
         'id' => $domain->id,
         'userid' => $domain->owner_id,
         'orderid' => $getCheckout->id,
@@ -108,6 +106,10 @@ foreach ($domains as $domain) {
         'created_at' => null,
         'updated_at' => null
     ];
+    $buildQuery = insert_query('tbldomains', $tbldomains);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Satılan alan adı aktarıldı: Alan Adı: '.$domain->name.'<br />';
+    }else{
+        echo 'Satılan alan adı AKTARILAMADI! -- Alan Adı: '.$domain->name.'<br />';
+    }
 }
-
-echo json_encode($tblDomains, true);

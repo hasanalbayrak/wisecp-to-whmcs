@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $tickets = Capsule::table("tickets")
@@ -99,7 +97,7 @@ foreach ($tickets as $ticket) {
         $c .= $seeds[rand(0, $seeds_count)];
     }
 
-    $tblTickets[] = [
+    $tblTickets = [
         'id' => $ticket->id,
         'tid' => genTicketMask($ticket->id), // Random 6 haneli rakam
         'did' => $ticket->did, // Department ID
@@ -128,6 +126,10 @@ foreach ($tickets as $ticket) {
         'editor' => 'markdown',
         'updated_at' => NULL
     ];
+    $buildQuery = insert_query('tbltickets', $tblTickets);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Destek bileti eklendi: Destek bileti Adı: '.$ticket->title.'<br />';
+    }else{
+        echo 'Destek bileti AKTARILMADI! -- Destek bileti Adı: '.$ticket->title.'<br />';
+    }
 }
-
-echo json_encode($tblTickets, true);

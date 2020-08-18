@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $hostings = Capsule::table("users_products")
@@ -89,7 +87,7 @@ foreach ($hostings as $hosting) {
         $server = $hostingOptions->server_id;
     }
 
-    $tblHosting[] = [
+    $tblHosting = [
         'id' => $hosting->id,
         'userid' => $hosting->owner_id,
         'orderid' => $getCheckout->id,
@@ -126,6 +124,10 @@ foreach ($hostings as $hosting) {
         'created_at' => null,
         'updated_at' => null
     ];
+    $buildQuery = insert_query('tblhosting', $tblHosting);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Hizmet aktarıldı: Tanımlı Domain: '.$domain.'<br />';
+    }else{
+        echo 'Hizmet AKTARILMADI! -- Tanımlı Domain: '.$domain.'<br />';
+    }
 }
-
-echo json_encode($tblHosting, true);

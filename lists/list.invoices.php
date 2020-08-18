@@ -1,7 +1,5 @@
 <?php
 
-require 'Connection.php';
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $invoices = Capsule::table("invoices")
@@ -45,7 +43,7 @@ foreach ($invoices as $invoice) {
         $paymentmethod = "banktransfer";
     }
 
-    $tblInvoices[] = [
+    $tblInvoices = [
         'id' => $invoice->id,
         'userid' => $invoice->user_id,
         'invoicenum' => '',
@@ -67,12 +65,12 @@ foreach ($invoices as $invoice) {
         'paymethodid' => NULL, // BAKILACAK
         'notes' => $invoice->notes,
         'created_at' => $cdate->format("Y-m-d H:i:s"),
-        'updated_at' => $cdate->format("Y-m-d H:i:s"),
-        // WiseCP Contents
-        'user_data' => json_decode($invoice->user_data),
-        'data' => json_decode($invoice->data),
-        'pmethod_msg' => json_decode($invoice->pmethod_msg)
+        'updated_at' => $cdate->format("Y-m-d H:i:s")
     ];
+    $buildQuery = insert_query('tblinvoices', $tblInvoices);
+    if($whmcsDB->query($buildQuery)){
+        echo 'Fatura aktarıldı: Fatura No: '.$invoice->id.'<br />';
+    }else{
+        echo 'Fatura AKTARILMADI! -- Fatura No: '.$invoice->id.'<br />';
+    }
 }
-
-echo json_encode($tblInvoices, true);
