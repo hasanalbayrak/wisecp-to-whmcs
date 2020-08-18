@@ -3,10 +3,10 @@
 $configuration = [
     'wisecp' => [
         'driver' => 'mysql',
-        'host' => 'wagonn.net',
-        'database' => 'wagonn_wisecp',
-        'username' => 'wagonn_wisecp',
-        'password' => 'g0@68uyN',
+        'host' => 'localhost',
+        'database' => 'root',
+        'username' => 'root',
+        'password' => 'root',
         'charset' => 'UTF8',
         'collation' => 'utf8_general_ci',
         'prefix' => '',
