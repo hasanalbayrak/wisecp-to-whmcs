@@ -4,6 +4,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $tldList = Capsule::table("tldlist")
     ->get();
+$result .= '<h3>Alan Adı Uzantıları aktarılıyor ...</h3>';
 
 foreach ($tldList as $item) {
     $created_at = new \DateTime($item->cdate);
@@ -27,9 +28,9 @@ foreach ($tldList as $item) {
 
     $buildQuery = insert_query('tbldomainpricing', $tbldomainpricing);
     if($whmcsDB->query($buildQuery)){
-        echo 'Alan adı eklendi: Alan Adı Uzantısı: '.$item->name.'<br />';
+        $result .= '<div class="text-success">Alan adı uzantısı aktarıldı: Alan adı uzantısı: '.$item->name.'</div>';
     }else{
-        echo 'Alan adı AKTARILMADI! -- Alan Adı Uzantısı: '.$item->name.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Alan adı aktarılmadı! Alan Adı uzantısı: '.$item->name.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Alan adı aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

@@ -8,6 +8,7 @@ $domains = Capsule::table("users_products")
 
 $tblDomains = [];
 $now = new \DateTime("now");
+$result .= '<h3>Alan Adları aktarılıyor ...</h3>';
 
 foreach ($domains as $domain) {
     $cdate = new \DateTime($domain->cdate);
@@ -109,9 +110,9 @@ foreach ($domains as $domain) {
     ];
     $buildQuery = insert_query('tbldomains', $tbldomains);
     if($whmcsDB->query($buildQuery)){
-        echo 'Satılan alan adı aktarıldı: Alan Adı: '.$domain->name.'<br />';
+        $result .= '<div class="text-success">Alan adı aktarıldı: Alan adı: '.$domain->name.'</div>';
     }else{
-        echo 'Satılan alan adı AKTARILAMADI! -- Alan Adı: '.$domain->name.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Alan adı aktarılmadı! - Alan Adı: '.$domain->name.'<br />Hata mesajı: '.$whmcsDB->error.'</div>';
         error_log("Client domain aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

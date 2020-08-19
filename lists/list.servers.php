@@ -5,6 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $servers = Capsule::table("servers")
     ->orderBy("id", "ASC")
     ->get();
+$result .= '<h3>Sunucular aktarılıyor ...</h3>';
 
 $tblServers = [];
 foreach ($servers as $server) {
@@ -43,9 +44,9 @@ foreach ($servers as $server) {
     ];
     $buildQuery = insert_query('tblservers', $tblServers);
     if($whmcsDB->query($buildQuery)){
-        echo 'Sunucu eklendi: Sunucu Adı: '.$server->name.'<br />';
+        $result .= '<div class="text-success">Sunucu aktarıldı: Sunucu Adı: '.$server->name.'</div>';
     }else{
-        echo 'Sunucu AKTARILMADI! -- Sunucu Adı: '.$server->name.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Sunucu aktarılmadı! Sunucu Adı: '.$server->name.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Sunucu aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

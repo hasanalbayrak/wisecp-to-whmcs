@@ -6,6 +6,8 @@ $invoices = Capsule::table("invoices")
     ->get();
 
 $tblInvoices = [];
+$result .= '<h3>Faturalar aktarılıyor ...</h3>';
+
 foreach ($invoices as $invoice) {
     $cdate = new \DateTime($invoice->cdate);
     $duedate = new \DateTime($invoice->duedate);
@@ -69,9 +71,9 @@ foreach ($invoices as $invoice) {
     ];
     $buildQuery = insert_query('tblinvoices', $tblInvoices);
     if($whmcsDB->query($buildQuery)){
-        echo 'Fatura aktarıldı: Fatura No: '.$invoice->id.'<br />';
+        $result .= '<div class="text-success">Fatura aktarıldı: Fatura ID: '.$invoice->id.'</div>';
     }else{
-        echo 'Fatura AKTARILMADI! -- Fatura No: '.$invoice->id.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Fatura aktarılmadı! Fatura ID: '.$invoice->id.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Client invoice aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

@@ -13,6 +13,7 @@ $types = [
 
 $products = Capsule::table("products")
     ->get();
+$result .= '<h3>Ürünler aktarılıyor ...</h3>';
 
 foreach ($products as $product) {
     $hidden = 1;
@@ -127,9 +128,9 @@ foreach ($products as $product) {
     ];
     $buildQuery = insert_query('tblproducts', $whmcsExcluded);
     if($whmcsDB->query($buildQuery)){
-        echo 'Ürün aktarıldı: Ürün adı: '.$product_lang->title.'<br />';
+        $result .= '<div class="text-success">Ürün aktarıldı: Ürün Adı: '.$product_lang->title.'</div>';
     }else{
-        echo 'Ürün AKTARILMADI -- Ürün adı: '.$product_lang->title.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Ürün aktarılmadı! Fatura ID: '.$product_lang->title.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Ürün aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

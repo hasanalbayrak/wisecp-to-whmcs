@@ -5,6 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $invoiceitems = Capsule::table("invoices_items")
     ->get();
 $tblInvoiceItems = [];
+$result .= '<h3>Faturalandırılan ürünler aktarılıyor ...</h3>';
 
 foreach ($invoiceitems as $invoiceitem) {
 
@@ -66,9 +67,9 @@ foreach ($invoiceitems as $invoiceitem) {
     ];
     $buildQuery = insert_query('tblinvoiceitems', $tblInvoiceItems);
     if($whmcsDB->query($buildQuery)){
-        echo 'Fatura öğesi aktarıldı: Fatura No: '.$invoiceitem->id.'<br />';
+        $result .= '<div class="text-success">Faturalandırılan ürün aktarıldı: Primary ID: '.$invoiceitem->id.' Fatura No: '.$invoiceitem->id.' - Faturalandırılan Ürün No: '.$invoiceitem->user_pid.'</div>';
     }else{
-        echo 'Fatura öğesi AKTARILMADI! -- Fatura No: '.$invoiceitem->id.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Faturalandırılan ürün aktarılmadı! Primary ID: '.$invoiceitem->id.' Fatura No: '.$invoiceitem->id.' - Faturalandırılan Ürün No: '.$invoiceitem->user_pid.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Client invoice items aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

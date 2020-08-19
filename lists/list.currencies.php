@@ -6,6 +6,7 @@ $currencies = Capsule::table("currencies")
     ->where("status", "active")
     ->get();
 $tblcurrencies = [];
+$result .= '<h3>Para birimleri aktarılıyor ...</h3>';
 foreach ($currencies as $currency) {
     $tblcurrencies = [
         'id' => $currency->id,
@@ -18,9 +19,9 @@ foreach ($currencies as $currency) {
     ];
     $buildQuery = insert_query('tblcurrencies', $tblcurrencies);
     if($whmcsDB->query($buildQuery)){
-        echo 'Para birimi aktarıldı: Para birimi kodu: '.$currency->code.'<br />';
+        $result .= '<div class="text-success">Para birimi aktarıldı: Para birimi kodu: '.$currency->code.'</div>';
     }else{
-        echo 'Para birimi AKTARILAMADI! -- Para birimi kodu: '.$currency->code.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Para birimi aktarılmadı! - Para birimi kodu: '.$currency->code.'<br />Hata mesajı: '.$whmcsDB->error.'</div>';
         error_log("Currency aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

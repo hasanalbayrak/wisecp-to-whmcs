@@ -4,6 +4,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $ticketreplies = Capsule::table("tickets_replies")
     ->get();
+$result .= '<h3>Destek bileti yanıtları aktarılıyor ...</h3>';
 
 foreach ($ticketreplies as $ticketreply) {
 
@@ -39,9 +40,9 @@ foreach ($ticketreplies as $ticketreply) {
 
     $buildQuery = insert_query('tblticketreplies', $tblticketreplies);
     if($whmcsDB->query($buildQuery)){
-        echo 'Bilet yanıtı eklendi. Yanıt No: '.$ticketreply->id.'<br />';
+        $result .= '<div class="text-success">Destek bileti yanıtı aktarıldı: Yanıt ID: '.$ticketreply->id.'</div>';
     }else{
-        echo 'Bilet yanıtı AKTARILMADI -- Yanıt No: '.$ticketreply->id.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Destek bileti yanıtı aktarılmadı! Yanıt ID: '.$ticketreply->id.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Destek bilet yanıları aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

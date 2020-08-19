@@ -10,6 +10,7 @@ $clients = Capsule::table("users")
     ->where("type", "member")
     ->get();
 $tblClients = [];
+$result .= '<h3>Müşteriler aktarılıyor ...</h3>';
 foreach ($clients as $client) {
     $clientAddress = Capsule::table("users_addresses")
         ->where("owner_id", $client->id)
@@ -92,9 +93,9 @@ foreach ($clients as $client) {
     ];
     $buildQuery = insert_query('tblclients', $tblClients);
     if($whmcsDB->query($buildQuery)){
-        echo 'Müşteri aktarıldı: Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />';
+        $result .= '<div class="text-success">Müşteri aktarıldı: Müşteri adı soyadı: '.$client->name.' '.$client->surname.'</div>';
     }else{
-        echo 'Müşteri AKTARILMADI! -- Müşteri adı soyadı: '.$client->name.' '.$client->surname.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Müşteri aktarılmadı! - Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />Hata mesajı: '.$whmcsDB->error.'</div>';
         error_log("Client aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

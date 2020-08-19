@@ -57,6 +57,7 @@ function genTicketMask($id = "")
     }
     return $ticketmaskstr;
 }
+$result .= '<h3>Destek biletleri aktarılıyor ...</h3>';
 
 foreach ($tickets as $ticket) {
     $lastreply = new \DateTime($ticket->lastreply);
@@ -128,9 +129,9 @@ foreach ($tickets as $ticket) {
     ];
     $buildQuery = insert_query('tbltickets', $tblTickets);
     if($whmcsDB->query($buildQuery)){
-        echo 'Destek bileti eklendi: Destek bileti Adı: '.$ticket->title.'<br />';
+        $result .= '<div class="text-success">Destek bileti aktarıldı: Bilet Adı: '.$ticket->title.'</div>';
     }else{
-        echo 'Destek bileti AKTARILMADI! -- Destek bileti Adı: '.$ticket->title.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Destek bileti aktarılmadı! Bilet Adı: '.$ticket->title.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Destek bileti aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

@@ -6,6 +6,7 @@ $tickets_departments = Capsule::table("tickets_departments")
     ->get();
 
 $tblTicketDepartments = [];
+$result .= '<h3>Destek bileti departmanları aktarılıyor ...</h3>';
 
 foreach ($tickets_departments as $tickets_department) {
     $department_lang = Capsule::table("tickets_departments_lang")
@@ -30,9 +31,9 @@ foreach ($tickets_departments as $tickets_department) {
     ];
     $buildQuery = insert_query('tblticketdepartments', $tblTicketDepartments);
     if($whmcsDB->query($buildQuery)){
-        echo 'Destek talebi departmanı eklendi: Departman Adı: '.$department_lang->name.'<br />';
+        $result .= '<div class="text-success">Destek bileti departmanı aktarıldı: Departman Adı: '.$department_lang->name.'</div>';
     }else{
-        echo 'Destek talebi departmanı AKTARILMADI! -- Departman Adı: '.$department_lang->name.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Destek bileti departmanı aktarılmadı! Departman Adı: '.$department_lang->name.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("Destek departmanı aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

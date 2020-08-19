@@ -9,6 +9,7 @@ $hostings = Capsule::table("users_products")
 $tblHosting = [];
 
 $now = new \DateTime("now");
+$result .= '<h3>Ürün ve hizmetler aktarılıyor ...</h3>';
 
 foreach ($hostings as $hosting) {
     $getCheckout = Capsule::table("checkouts")
@@ -127,9 +128,9 @@ foreach ($hostings as $hosting) {
     ];
     $buildQuery = insert_query('tblhosting', $tblHosting);
     if($whmcsDB->query($buildQuery)){
-        echo 'Hizmet aktarıldı: Tanımlı Domain: '.$domain.'<br />';
+        $result .= '<div class="text-success">Ürün / Hizmet aktarıldı: Tanımlı Alan adı: '.$domain.'</div>';
     }else{
-        echo 'Hizmet AKTARILMADI! -- Tanımlı Domain: '.$domain.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Ürün / Hizmet aktarılmadı! - Tanımlı Alan Adı: '.$domain.'<br />Hata mesajı: '.$whmcsDB->error.'</div>';
         error_log("Client hosting aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

@@ -2,6 +2,8 @@
 
 require 'init.php';
 
+$result = "";
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 page_title("Kurulum");
@@ -62,7 +64,13 @@ $ticketrepliescount = Capsule::table("tickets_replies")
     ->count();
 assign("ticketrepliescount", $ticketrepliescount);
 
+assign("is_form_posted", false);
+
+assign("error_log", $result);
+
 if ($_POST && $_POST["action"] == "import_whmcs" && $_POST["import_whmcs"]) {
+    assign("is_form_posted", true);
+    $result = "";
     if ($_POST["clients"])
         require __DIR__.'/lists/list.clients.php';
     if ($_POST["currency"])
@@ -89,6 +97,8 @@ if ($_POST && $_POST["action"] == "import_whmcs" && $_POST["import_whmcs"]) {
         require __DIR__.'/lists/list.tldlist.php';
     if ($_POST["ticketreplies"])
         require __DIR__.'/lists/list.ticketreplies.php';
+
+    assign("error_log", $result);
 }
 
 display("install-step1");

@@ -6,6 +6,7 @@ $prices = Capsule::table("prices")
     ->get();
 
 $tblPricing = [];
+$result .= '<h3>Fiyatlar aktarılıyor ...</h3>';
 
 foreach ($prices as $price) {
 
@@ -53,9 +54,9 @@ foreach ($prices as $price) {
 
     $buildQuery = insert_query('tblpricing', $tblPricing);
     if($whmcsDB->query($buildQuery)){
-        echo 'Ürün fiyat alanı eklendi: Ürün ID: '.$price->owner_id.'<br />';
+        $result .= '<div class="text-success">Fiyat aktarıldı: Fiyatı aktarılan Ürün ID: '.$price->owner_id.'</div>';
     }else{
-        echo 'Ürün fiyat alanı AKTARILMADI! -- Ürün ID: '.$price->owner_id.' - Hata: '.$whmcsDB->error.'<br />';
+        $result .= '<div class="text-danger">Fiyat aktarılmadı! Fiyatı aktarılmayan Ürün ID: '.$price->owner_id.'<br />Hata: '.$whmcsDB->error.'</div>';
         error_log("PID Price aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }
