@@ -29,7 +29,7 @@ foreach ($invoiceitems as $invoiceitem) {
         $dueDate = $ccdate->format("Y-m-d");
         if ($dueDate == "1970-01-01") {
             $dueDate = new \DateTime($dueDate);
-            $dueDate = $ccdate->modify("+".$itemOptions->period_time." ".$itemOptions->period)->format("Y-m-d");
+            //$dueDate = $ccdate->modify("+".$itemOptions->period_time." ".$itemOptions->period)->format("Y-m-d");
         }
     }
 

@@ -80,7 +80,8 @@ foreach ($domains as $domain) {
     $tbldomains = [
         'id' => $domain->id,
         'userid' => $domain->owner_id,
-        'orderid' => $getCheckout->id,
+        //'orderid' => $getCheckout->id,
+        'orderid' => 0,
         'type' => $type,
         'registrationdate' => $cdate->format("Y-m-d"),
         'domain' => $domain->name,

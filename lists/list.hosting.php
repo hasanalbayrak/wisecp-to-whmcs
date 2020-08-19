@@ -90,7 +90,8 @@ foreach ($hostings as $hosting) {
     $tblHosting = [
         'id' => $hosting->id,
         'userid' => $hosting->owner_id,
-        'orderid' => $getCheckout->id,
+        'orderid' => 0,
+        //'orderid' => $getCheckout->id,
         'packageid' => $hosting->product_id,
         'server' => $server,
         'regdate' => $cdate->format("Y-m-d"),
