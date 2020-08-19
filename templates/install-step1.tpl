@@ -16,7 +16,7 @@
     <div class="body-content">
         <h2>İçeri Aktarma</h2>
         <p>Müşteriler, Para birimleri, destel talepleri, faturalar, faturalanan ürünler, satın alınan hosting, reseller, dedicated, vps, satın alınan alan adları aktarılır.</p>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Tablo</th>
@@ -68,14 +68,20 @@
                 <td>Destek Bileti Sayısı</td>
                 <td class="text-center">{$ticketcounts}</td>
             </tr>
+            <tr>
+                <td>Alan Adı Uzantıları Sayısı</td>
+                <td class="text-center">{$tldlistcount}</td>
+            </tr>
             </tbody>
         </table>
         <form action="" method="post">
             <input type="hidden" name="action" value="import_whmcs" />
             <input type="hidden" name="import_whmcs" value="true" />
-            <button type="submit" class="btn btn-primary">
-                Aktar
-            </button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-wgn">
+                    İçeri Aktar
+                </button>
+            </div>
         </form>
     </div>
     <footer>

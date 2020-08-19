@@ -54,6 +54,10 @@ $ticketcounts = Capsule::table("tickets")
     ->count();
 assign("ticketcounts", $ticketcounts);
 
+$tldListcount = Capsule::table("tldlist")
+    ->count();
+assign("tldlistcount", $tldListcount);
+
 if ($_POST && $_POST["action"] == "import_whmcs" && $_POST["import_whmcs"]) {
     require __DIR__.'/lists/list.clients.php';
     require __DIR__.'/lists/list.currencies.php';
@@ -66,6 +70,7 @@ if ($_POST && $_POST["action"] == "import_whmcs" && $_POST["import_whmcs"]) {
     require __DIR__.'/lists/list.servers.php';
     require __DIR__.'/lists/list.supportdepartments.php';
     require __DIR__.'/lists/list.tickets.php';
+    require __DIR__.'/lists/list.tldlist.php';
 }
 
 display("install-step1");
