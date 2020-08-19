@@ -29,6 +29,7 @@ foreach ($tldList as $item) {
     if($whmcsDB->query($buildQuery)){
         echo 'Alan adı eklendi: Alan Adı Uzantısı: '.$item->name.'<br />';
     }else{
-        echo 'Alan adı AKTARILMADI! -- Alan Adı Uzantısı: '.$item->name.'<br />';
+        echo 'Alan adı AKTARILMADI! -- Alan Adı Uzantısı: '.$item->name.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Alan adı aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

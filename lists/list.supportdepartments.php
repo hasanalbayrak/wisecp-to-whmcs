@@ -32,6 +32,7 @@ foreach ($tickets_departments as $tickets_department) {
     if($whmcsDB->query($buildQuery)){
         echo 'Destek talebi departmanı eklendi: Departman Adı: '.$department_lang->name.'<br />';
     }else{
-        echo 'Destek talebi departmanı AKTARILMADI! -- Departman Adı: '.$department_lang->name.'<br />';
+        echo 'Destek talebi departmanı AKTARILMADI! -- Departman Adı: '.$department_lang->name.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Destek departmanı aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

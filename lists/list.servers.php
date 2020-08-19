@@ -45,6 +45,7 @@ foreach ($servers as $server) {
     if($whmcsDB->query($buildQuery)){
         echo 'Sunucu eklendi: Sunucu Adı: '.$server->name.'<br />';
     }else{
-        echo 'Sunucu AKTARILMADI! -- Sunucu Adı: '.$server->name.'<br />';
+        echo 'Sunucu AKTARILMADI! -- Sunucu Adı: '.$server->name.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Sunucu aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

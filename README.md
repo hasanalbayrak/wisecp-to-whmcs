@@ -18,8 +18,9 @@ WiseCP'den WHMCS'e ücretsiz geçiş sistemi
 ## Hatalar
 - Satın alınan alan adları aktarmada order_id problemi bulunuyor.
 - Satın alınan ürün ve hizmetleri aktarmada order_id problemi bulunuyor.
+- Faturalandırılan ürünlerde duedate alanındaki tarihde problem bulunuyor.
 
-Ürün fiyatlarını, sunucu ve ürünleri kontrol edilmesinde fayda var.
+Ürün fiyatlarının, ürün konfigürasyonlarının tekrar tanımlanması gerekir.
 
 Birebir ID'lerine kadar aktardığı için aktarma yaptıktan sonra bu tablolarda AUTO_INCREMENT değerini son eklenen ID'nin bir üstünü yapmanız gerekiyor.
 

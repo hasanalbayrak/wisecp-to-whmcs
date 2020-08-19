@@ -49,6 +49,14 @@ foreach ($products as $product) {
         $stockcontrol = 1;
         $qty = $product->stock;
     }
+
+    $welcomeemail = 0;
+    if ($type == "hostingaccount") {
+        $welcomeemail = 1;
+    }elseif ($type == "server") {
+        $welcomeemail = 17;
+    }
+
     $whmcsExcluded = [
         'id' => $product->id,
         'type' => $type,
@@ -57,10 +65,10 @@ foreach ($products as $product) {
         'description' => $product_lang->features,
         'hidden' => $hidden,
         'showdomainoptions' => $showdomainoptions,
-        'welcomemail' => NULL, // Tanımlama gerekli
+        'welcomeemail' => $welcomeemail, // Tanımlama gerekli
         'stockcontrol' => $stockcontrol,
         'qty' => $qty,
-        'proratabiling' => 0,
+        'proratabilling' => 0,
         'proratadate' => 0,
         'proratachargenextmonth' => 0,
         'paytype' => 'recurring',
@@ -121,6 +129,7 @@ foreach ($products as $product) {
     if($whmcsDB->query($buildQuery)){
         echo 'Ürün aktarıldı: Ürün adı: '.$product_lang->title.'<br />';
     }else{
-        echo 'Ürün AKTARILMADI -- Ürün adı: '.$product_lang->title.'<br />';
+        echo 'Ürün AKTARILMADI -- Ürün adı: '.$product_lang->title.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Ürün aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

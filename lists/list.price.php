@@ -37,24 +37,25 @@ foreach ($prices as $price) {
         'type' => $type,
         'currency' => $price->cid,
         'relid' => $price->owner_id, // product id
-        'msetupfee' => '', // aylık kurulum ücreti
-        'qsetupfee' => '', // 3 aylık kurulum ücreti
-        'ssetupfee' => '', // 6 aylık kurlum ücreti
-        'asetupfee' => '', // yıllık kurulum ücreti
-        'bsetupfee' => '', // 2 yıllık kurulum ücreti
-        'tsetupfee' => '', // 3 yıllık kurulum ücret
-        'monthly' => '', // aylık
-        'quarterly' => '', // 3 aylık
-        'semiannually' => '', // 6 aylık
-        'annually' => '', // yıllık
-        'biennially' => '', // 2 yıllık
-        'triennially' => '', // 3 yıllık
+        'msetupfee' => '0.00', // aylık kurulum ücreti
+        'qsetupfee' => '0.00', // 3 aylık kurulum ücreti
+        'ssetupfee' => '0.00', // 6 aylık kurlum ücreti
+        'asetupfee' => '0.00', // yıllık kurulum ücreti
+        'bsetupfee' => '0.00', // 2 yıllık kurulum ücreti
+        'tsetupfee' => '0.00', // 3 yıllık kurulum ücret
+        'monthly' => '0.00', // aylık
+        'quarterly' => '0.00', // 3 aylık
+        'semiannually' => '0.00', // 6 aylık
+        'annually' => '0.00', // yıllık
+        'biennially' => '0.00', // 2 yıllık
+        'triennially' => '0.00', // 3 yıllık
     ];
 
     $buildQuery = insert_query('tblpricing', $tblPricing);
     if($whmcsDB->query($buildQuery)){
         echo 'Ürün fiyat alanı eklendi: Ürün ID: '.$price->owner_id.'<br />';
     }else{
-        echo 'Ürün fiyat alanı AKTARILMADI! -- Ürün ID: '.$price->owner_id.'<br />';
+        echo 'Ürün fiyat alanı AKTARILMADI! -- Ürün ID: '.$price->owner_id.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("PID Price aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

@@ -41,6 +41,7 @@ foreach ($ticketreplies as $ticketreply) {
     if($whmcsDB->query($buildQuery)){
         echo 'Bilet yanıtı eklendi. Yanıt No: '.$ticketreply->id.'<br />';
     }else{
-        echo 'Bilet yanıtı AKTARILMADI -- Yanıt No: '.$ticketreply->id.'<br />';
+        echo 'Bilet yanıtı AKTARILMADI -- Yanıt No: '.$ticketreply->id.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Destek bilet yanıları aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }

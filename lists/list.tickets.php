@@ -102,7 +102,7 @@ foreach ($tickets as $ticket) {
         'tid' => genTicketMask($ticket->id), // Random 6 haneli rakam
         'did' => $ticket->did, // Department ID
         'userid' => $ticket->user_id, // Client ID
-        'contactid' => '', // Contact varsa ki taşıma da 0 yap
+        'contactid' => 0, // Contact varsa ki taşıma da 0 yap
         'name' => '', // Contact
         'email' => '', // Contact
         'cc' => '', // Contact
@@ -120,16 +120,17 @@ foreach ($tickets as $ticket) {
         'clientunread' => 0,
         'adminunread' => '',
         'replyingadmin' => 0,
-        'replyingtime' => NULL,
+        'replyingtime' => $lastreply->format("Y-m-d H:i:s"),
         'service' => $ticket->service,
         'merged_ticket_id' => 0,
         'editor' => 'markdown',
-        'updated_at' => NULL
+        'updated_at' => $lastreply->format("Y-m-d H:i:s")
     ];
     $buildQuery = insert_query('tbltickets', $tblTickets);
     if($whmcsDB->query($buildQuery)){
         echo 'Destek bileti eklendi: Destek bileti Adı: '.$ticket->title.'<br />';
     }else{
-        echo 'Destek bileti AKTARILMADI! -- Destek bileti Adı: '.$ticket->title.'<br />';
+        echo 'Destek bileti AKTARILMADI! -- Destek bileti Adı: '.$ticket->title.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Destek bileti aktarılmıyor. Hata: ".$whmcsDB->error);
     }
 }
