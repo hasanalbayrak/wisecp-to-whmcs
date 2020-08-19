@@ -27,7 +27,8 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th colspan="2">Tablo</th>
+                    <th><input type="checkbox" id="selectAll"/></th>
+                    <th>Tablo</th>
                     <th class="text-center">Veri</th>
                 </tr>
                 </thead>
