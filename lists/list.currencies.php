@@ -20,6 +20,7 @@ foreach ($currencies as $currency) {
     if($whmcsDB->query($buildQuery)){
         echo 'Para birimi aktarıldı: Para birimi kodu: '.$currency->code.'<br />';
     }else{
-        echo 'Para birimi AKTARILAMADI! -- Para birimi kodu: '.$currency->code.'<br />';
+        echo 'Para birimi AKTARILAMADI! -- Para birimi kodu: '.$currency->code.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Currency aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

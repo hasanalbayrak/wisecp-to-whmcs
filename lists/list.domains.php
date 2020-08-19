@@ -110,6 +110,7 @@ foreach ($domains as $domain) {
     if($whmcsDB->query($buildQuery)){
         echo 'Satılan alan adı aktarıldı: Alan Adı: '.$domain->name.'<br />';
     }else{
-        echo 'Satılan alan adı AKTARILAMADI! -- Alan Adı: '.$domain->name.'<br />';
+        echo 'Satılan alan adı AKTARILAMADI! -- Alan Adı: '.$domain->name.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Client domain aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

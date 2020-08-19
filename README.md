@@ -15,6 +15,10 @@ WiseCP'den WHMCS'e ücretsiz geçiş sistemi
 - Alan Adı Uzantıları
 - Destek bileti cevapları
 
+## Hatalar
+- Satın alınan alan adları aktarmada order_id problemi bulunuyor.
+- Satın alınan ürün ve hizmetleri aktarmada order_id problemi bulunuyor.
+
 Ürün fiyatlarını, sunucu ve ürünleri kontrol edilmesinde fayda var.
 
 Birebir ID'lerine kadar aktardığı için aktarma yaptıktan sonra bu tablolarda AUTO_INCREMENT değerini son eklenen ID'nin bir üstünü yapmanız gerekiyor.

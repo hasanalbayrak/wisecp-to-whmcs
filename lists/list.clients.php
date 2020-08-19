@@ -38,10 +38,11 @@ foreach ($clients as $client) {
         'lastname' => $client->surname,
         'companyname' => $client->company_name,
         'email' => $client->email,
-        'streetaddress' => $clientAddress->address,
-        'streetaddress2' => '',
+        'address1' => $clientAddress->address,
+        'address2' => '',
         'city' => $city->name,
         'state' => '',
+        'postcode' => '',
         'country' => $country->a2_iso,
         'phonenumber' => $client->phone,
         'tax_id' => '',
@@ -56,13 +57,13 @@ foreach ($clients as $client) {
         'overideduenotices' => 0,
         'separateinvoices' => 0,
         'disableautocc' => 0,
-        'datecreated' => $creation_time->format("Y-m-d"),
+        'datecreated' => $creation_time->format("Y-m-d H:i:s"),
         'notes' => $notes->content,
         'billingcid' => 0,
         'securityqid' => 0,
         'securityqans' => '',
         'groupid' => 0,
-        'cartype' => '',
+        'cardtype' => '',
         'cardlastfour' => '',
         'cardnum' => '',
         'startdate' => '',
@@ -84,14 +85,16 @@ foreach ($clients as $client) {
         'overrideautoclose' => 0,
         'allow_sso' => 1,
         'email_verified' => 0,
-        'created_at' => NULL,
+        'email_preferences' => '',
+        'created_at' => $creation_time->format("Y-m-d H:i:s"),
         'updated_at' => $updated_at->format("Y-m-d H:i:s"),
-        'pwresetexpiry' => NULL
+        'pwresetexpiry' => '0000-00-00 00:00:00'
     ];
     $buildQuery = insert_query('tblclients', $tblClients);
     if($whmcsDB->query($buildQuery)){
         echo 'Müşteri aktarıldı: Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />';
     }else{
-        echo 'Müşteri AKTARILMADI! -- Müşteri adı soyadı: '.$client->name.' '.$client->surname.'<br />';
+        echo 'Müşteri AKTARILMADI! -- Müşteri adı soyadı: '.$client->name.' '.$client->surname.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Client aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

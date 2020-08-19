@@ -15,10 +15,10 @@ foreach ($invoices as $invoice) {
     $datePaid = $datepaid->format("Y-m-d H:i:s");
     $refundDate = $refunddate->format("Y-m-d H:i:s");
     if ($datepaid->format("Y-m-d H:i:s") == "1881-05-19 00:00:00") {
-        $datePaid = NULL;
+        $datePaid = "0000-00-00 00:00:00";
     }
     if ($refunddate->format("Y-m-d H:i:s") == "1881-05-19 00:00:00") {
-        $refundDate = NULL;
+        $refundDate = "0000-00-00 00:00:00";
     }
     $credit = 0.00;
     if ($invoice->pmethod == "Balance") {
@@ -50,9 +50,9 @@ foreach ($invoices as $invoice) {
         'date' => $cdate->format("Y-m-d"),
         'duedate' => $duedate->format("Y-m-d"),
         'datepaid' => $datePaid,
-        'last_capture_attempt' => NULL,
+        'last_capture_attempt' => '0000-00-00 00:00:00',
         'date_refunded' => $refundDate,
-        'date_cancelled' => NULL, // BAKILACAK
+        'date_cancelled' => '0000-00-00 00:00:00',
         'subtotal' => $invoice->subtotal,
         'credit' => $credit,
         'tax' => $invoice->tax,
@@ -62,7 +62,7 @@ foreach ($invoices as $invoice) {
         'taxrate2' => 0.00,
         'status' => $status,
         'paymentmethod' => $paymentmethod,
-        'paymethodid' => NULL, // BAKILACAK
+        'paymethodid' => 0, // BAKILACAK
         'notes' => $invoice->notes,
         'created_at' => $cdate->format("Y-m-d H:i:s"),
         'updated_at' => $cdate->format("Y-m-d H:i:s")
@@ -71,6 +71,7 @@ foreach ($invoices as $invoice) {
     if($whmcsDB->query($buildQuery)){
         echo 'Fatura aktarıldı: Fatura No: '.$invoice->id.'<br />';
     }else{
-        echo 'Fatura AKTARILMADI! -- Fatura No: '.$invoice->id.'<br />';
+        echo 'Fatura AKTARILMADI! -- Fatura No: '.$invoice->id.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Client invoice aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

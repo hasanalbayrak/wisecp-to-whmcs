@@ -111,7 +111,7 @@ foreach ($hostings as $hosting) {
         'promoid' => 0,
         'suspendreason' => '',
         'overideautosuspend' => 0,
-        'overidesuspendutil' => null,
+        'overidesuspenduntil' => null,
         'dedicatedip' => $hostingOptions->ip,
         'assignedips' => $hostingOptions->assigned_ips,
         'ns1' => $hostingOptions->ns1,
@@ -128,6 +128,7 @@ foreach ($hostings as $hosting) {
     if($whmcsDB->query($buildQuery)){
         echo 'Hizmet aktarıldı: Tanımlı Domain: '.$domain.'<br />';
     }else{
-        echo 'Hizmet AKTARILMADI! -- Tanımlı Domain: '.$domain.'<br />';
+        echo 'Hizmet AKTARILMADI! -- Tanımlı Domain: '.$domain.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Client hosting aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }

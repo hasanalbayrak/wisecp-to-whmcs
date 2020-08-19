@@ -26,9 +26,10 @@ foreach ($invoiceitems as $invoiceitem) {
     if ($getInvoice->datepaid != "1881-05-19 00:00:00") {
         $cdate = new \DateTime($getInvoice->datepaid);
         $ccdate = new \DateTime($getInvoice->datepaid);
-        $dueDate = date("Y-m-d", $ccdate->format("Y-m-d"));
+        $dueDate = $ccdate->format("Y-m-d");
         if ($dueDate == "1970-01-01") {
-            //$dueDate = $ccdate->modify("+".$itemOptions->period_time." ".$itemOptions->period)->format("Y-m-d");
+            $dueDate = new \DateTime($dueDate);
+            $dueDate = $ccdate->modify("+".$itemOptions->period_time." ".$itemOptions->period)->format("Y-m-d");
         }
     }
 
@@ -67,6 +68,7 @@ foreach ($invoiceitems as $invoiceitem) {
     if($whmcsDB->query($buildQuery)){
         echo 'Fatura öğesi aktarıldı: Fatura No: '.$invoiceitem->id.'<br />';
     }else{
-        echo 'Fatura öğesi AKTARILMADI! -- Fatura No: '.$invoiceitem->id.'<br />';
+        echo 'Fatura öğesi AKTARILMADI! -- Fatura No: '.$invoiceitem->id.' - Hata: '.$whmcsDB->error.'<br />';
+        error_log("Client invoice items aktarilmiyor. Hata: ".$whmcsDB->error);
     }
 }
