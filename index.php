@@ -58,19 +58,37 @@ $tldListcount = Capsule::table("tldlist")
     ->count();
 assign("tldlistcount", $tldListcount);
 
+$ticketrepliescount = Capsule::table("tickets_replies")
+    ->count();
+assign("ticketrepliescount", $ticketrepliescount);
+
 if ($_POST && $_POST["action"] == "import_whmcs" && $_POST["import_whmcs"]) {
-    require __DIR__.'/lists/list.clients.php';
-    require __DIR__.'/lists/list.currencies.php';
-    require __DIR__.'/lists/list.domains.php';
-    require __DIR__.'/lists/list.hosting.php';
-    require __DIR__.'/lists/list.invoiceitems.php';
-    require __DIR__.'/lists/list.invoices.php';
-    require __DIR__.'/lists/list.price.php';
-    require __DIR__.'/lists/list.products.php';
-    require __DIR__.'/lists/list.servers.php';
-    require __DIR__.'/lists/list.supportdepartments.php';
-    require __DIR__.'/lists/list.tickets.php';
-    require __DIR__.'/lists/list.tldlist.php';
+    if ($_POST["clients"])
+        require __DIR__.'/lists/list.clients.php';
+    if ($_POST["currency"])
+        require __DIR__.'/lists/list.currencies.php';
+    if ($_POST["domains"])
+        require __DIR__.'/lists/list.domains.php';
+    if ($_POST["hosting"])
+        require __DIR__.'/lists/list.hosting.php';
+    if ($_POST["invoices"])
+        require __DIR__.'/lists/list.invoices.php';
+    if ($_POST["invoiceitems"])
+        require __DIR__.'/lists/list.invoiceitems.php';
+    if ($_POST["pricing"])
+        require __DIR__.'/lists/list.price.php';
+    if ($_POST["products"])
+        require __DIR__.'/lists/list.products.php';
+    if ($_POST["servers"])
+        require __DIR__.'/lists/list.servers.php';
+    if ($_POST["ticketdepartments"])
+        require __DIR__.'/lists/list.supportdepartments.php';
+    if ($_POST["tickets"])
+        require __DIR__.'/lists/list.tickets.php';
+    if ($_POST["domaintlds"])
+        require __DIR__.'/lists/list.tldlist.php';
+    if ($_POST["ticketreplies"])
+        require __DIR__.'/lists/list.ticketreplies.php';
 }
 
 display("install-step1");

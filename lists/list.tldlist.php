@@ -17,10 +17,10 @@ foreach ($tldList as $item) {
         'autoreg' => '',
         'order' => $item->rank,
         'group' => '',
-        'grace_period' => '',
-        'grace_period_fee' => '',
-        'redemption_grace_period' => '',
-        'redemption_grace_period_fee' => '',
+        'grace_period' => '-1',
+        'grace_period_fee' => '0.00',
+        'redemption_grace_period' => '-1',
+        'redemption_grace_period_fee' => '-1.00',
         'created_at' => $created_at->format("Y-m-d H:i:s"),
         'updated_at' => $created_at->format("Y-m-d H:i:s")
     ];

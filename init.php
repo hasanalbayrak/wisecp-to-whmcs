@@ -32,7 +32,7 @@ $now = new \DateTime("now");
 session_start();
 
 $sitetitle = "WAGONN Software and Design Solutions";
-$version = "v1.0 Beta 1";
+$version = "v1.0";
 
 function page_title($title)
 {

@@ -13,8 +13,6 @@ WiseCP'den WHMCS'e ücretsiz geçiş sistemi
 - Destek bileti departmanları
 - Destek biletleri
 - Alan Adı Uzantıları
-
-## Aktarılması henüz eklenmeyenler
 - Destek bileti cevapları
 
 Ürün fiyatlarını, sunucu ve ürünleri kontrol edilmesinde fayda var.
